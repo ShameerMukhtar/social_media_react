@@ -18,8 +18,8 @@ newPostList=currPostList.filter((post)=>
 else if(action.type==="ADD_POST"){
 //console.log(action.payload.tags);
 newPostList=[action.payload,...currPostList]
-// console.log(action.payload);
-// console.log(currPostList);
+ //console.log(action.payload);
+ //console.log(currPostList);
 }
 
 return newPostList;

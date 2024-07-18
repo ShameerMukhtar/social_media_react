@@ -6,7 +6,9 @@ import Sidebar from "./Components/Sidebar"
 import CreatePost from "./Components/CreatePost"
 import PostList from "./Components/PostList"
 import PostListProvider from "./Store/post-list-store"
+
 import { useState } from "react"
+import CheckPosts from "./Components/CheckPosts"
 function App() {
 const [selectedTab,setSelectedTab]=useState("Home");
 
@@ -22,8 +24,11 @@ return (
         setSelectedTab={setSelectedTab}
       ></Sidebar>
       <div className="content">
+        
         <Header></Header>
+        <CheckPosts></CheckPosts>
         {selectedTab === "Home" ? (
+          
           <PostList></PostList>
         ) : (
           <CreatePost></CreatePost>

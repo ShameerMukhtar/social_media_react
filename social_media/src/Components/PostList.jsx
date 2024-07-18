@@ -13,7 +13,7 @@ const {postList}=useContext(PostListContext);
 // map the postList and share it with Post component as props 
 return <>
 {postList.map((post)=>{
-  console.log(post);
+  // console.log(post);
   return <Post postList={post} key={post.id}></Post>
   
 })}
