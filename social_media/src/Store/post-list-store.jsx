@@ -34,6 +34,8 @@ const PostListProvider = ({ children }) => {
 
   // add new post
   const addPost = (userId,postTitle,postBody,reactions,tags,Uid) => {
+   
+   
     dispatchPostList({
 type:"ADD_POST",
 payload:{
@@ -64,7 +66,7 @@ payload:{
 };
 
   return (
-    // Share postList, addPost, deletePost with children 
+    // Share postList, addPost, deletePost with childrens
     <PostListContext.Provider value={{ postList, addPost, deletePost }}>
       {children}
     </PostListContext.Provider>

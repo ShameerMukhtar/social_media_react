@@ -1,12 +1,13 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { PostListContext } from "../Store/post-list-store";
+import { Alert, Toast } from "bootstrap";
 
 const CreatePost=()=>{
 
 // useContext 
 const {addPost}=useContext(PostListContext);
-
-
+// usestate for message if feilds remains empty
+const [message,setMessage]=useState();
 
 
 // useRef for form data
@@ -31,8 +32,14 @@ postBodyElement.current.value="";
 reactionsElement.current.value="";
 tagsElement.current.value="";
 // passing data to store's method as new data can be added
-addPost(userId,postTitle,postBody,reactions,tags,Uid) 
+if(userId && postTitle && postBody && reactions &&tags && Uid){
+setMessage("");
+  addPost(userId,postTitle,postBody,reactions,tags,Uid) 
 
+}
+else{
+  setMessage("Something missing recheck please..");
+}
 
 }
 
@@ -104,7 +111,7 @@ return <>
     ref={tagsElement}/>
      </div>
 
-
+<div>{message && <p className="message">{message}</p> } </div>
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
 

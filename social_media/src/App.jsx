@@ -26,7 +26,7 @@ return (
       <div className="content">
         
         <Header></Header>
-        <CheckPosts></CheckPosts>
+        <CheckPosts selectedTab={selectedTab}></CheckPosts>
         {selectedTab === "Home" ? (
           
           <PostList></PostList>
