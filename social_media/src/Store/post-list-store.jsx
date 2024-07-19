@@ -30,7 +30,7 @@ return newPostList;
 
 const PostListProvider = ({ children }) => {
   // Used useReducer for state managemant 
-  const [postList, dispatchPostList] = useReducer(postListReducer,DEFAULT_POST_LIST);
+  const [postList, dispatchPostList] = useReducer(postListReducer,[]);
 
   // add new post
   const addPost = (userId,postTitle,postBody,reactions,tags,Uid) => {
@@ -73,33 +73,33 @@ payload:{
 
 
 // Default value for Context
-const DEFAULT_POST_LIST=[
-  {
-id:"1",
-title:"Going to Lahore",
-body:"Hello guys going to lahore for my vacations. Hope to enjoy alot! Peace out",
-userid:"user-3"
-,
-reactions:"5",
-tags:["Lahore","Vacations","Enjoyment"]
+// const DEFAULT_POST_LIST=[
+//   {
+// id:"1",
+// title:"Going to Lahore",
+// body:"Hello guys going to lahore for my vacations. Hope to enjoy alot! Peace out",
+// userid:"user-3"
+// ,
+// reactions:"5",
+// tags:["Lahore","Vacations","Enjoyment"]
 
 
-},
-{
+// },
+// {
   
-    id:"2",
-    title:"Graduated",
-    body:"Hello guys finally i am graduated"
-    ,
-    userid:"user-7"
+//     id:"2",
+//     title:"Graduated",
+//     body:"Hello guys finally i am graduated"
+//     ,
+//     userid:"user-7"
     
-    ,reactions:"17",
-    tags:["Graduation","Practical Life"]
+//     ,reactions:"17",
+//     tags:["Graduation","Practical Life"]
     
     
     
-}
-]
+// }
+// ]
 
 
 
