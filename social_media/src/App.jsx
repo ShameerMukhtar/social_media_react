@@ -26,10 +26,10 @@ return (
       <div className="content">
         
         <Header></Header>
-        <CheckPosts selectedTab={selectedTab}></CheckPosts>
+        
         {selectedTab === "Home" ? (
           
-          <PostList></PostList>
+          <PostList selectedTab={selectedTab}></PostList>
         ) : (
           <CreatePost></CreatePost>
         )}

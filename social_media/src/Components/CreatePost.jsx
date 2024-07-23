@@ -1,12 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import { PostListContext } from "../Store/post-list-store";
-import { Alert, Toast } from "bootstrap";
+
 
 const CreatePost=()=>{
 
 // useContext 
 const {addPost}=useContext(PostListContext);
-// usestate for message if feilds remains empty
+// message if feilds remains empty
 const [message,setMessage]=useState();
 
 
@@ -31,9 +31,12 @@ postTitleElement.current.value="";
 postBodyElement.current.value="";
 reactionsElement.current.value="";
 tagsElement.current.value="";
-// passing data to store's method as new data can be added
+
+// check if there's no blank fields
 if(userId && postTitle && postBody && reactions &&tags && Uid){
 setMessage("");
+
+// passing data to store's method as new data can be added
   addPost(userId,postTitle,postBody,reactions,tags,Uid) 
 
 }
