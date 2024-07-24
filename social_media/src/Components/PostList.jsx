@@ -8,11 +8,11 @@ import CheckPosts from "./CheckPosts";
 const PostList =({selectedTab})=>{
   // Getting data from store using useContext;
 
-const {postList}=useContext(PostListContext);
+const {postList,initial_Posts}=useContext(PostListContext);
 
 // handle onClick Fetch Posts
 const onFetchPostsClick=()=>{
-  fetch('https://dummyjson.com/posts').then((response)=>response.json()).then((obj)=>console.log(obj.posts))
+  fetch('https://dummyjson.com/posts').then((response)=>response.json()).then((obj)=>initial_Posts(obj.posts))
 }
 
 

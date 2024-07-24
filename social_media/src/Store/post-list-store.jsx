@@ -1,3 +1,4 @@
+import { act } from "react";
 import { createContext, useReducer } from "react";
 
 
@@ -5,16 +6,28 @@ import { createContext, useReducer } from "react";
  export const PostListContext = createContext({ 
   postList: [],
   addPost: () => {},
-  deletePost: () => {},});
+  deletePost: () => {},
+  initial_Posts:()=>{},
+});
 
   // Reducer Function (Pure Function)
 const postListReducer=(currPostList,action)=>{
   let newPostList=currPostList;
+
+  // Delete posts
 if(action.type==="DELETE_POST"){
 newPostList=currPostList.filter((post)=>
   post.id!==action.payload.postId
 )
 }
+
+// Existing posts
+else if(action.type==="ADD_INITIAL_POSTS"){
+  newPostList=action.payload.NewPost;
+}
+
+
+// Add a new post
 else if(action.type==="ADD_POST"){
 //console.log(action.payload.tags);
 newPostList=[action.payload,...currPostList]
@@ -32,19 +45,46 @@ const PostListProvider = ({ children }) => {
   // Used useReducer for state managemant 
   const [postList, dispatchPostList] = useReducer(postListReducer,[]);
 
+  // Add Initial Posts
+  const initial_Posts=(apiResponse)=>{
+    let NewPost=[];
+   apiResponse.map((Post)=>{
+   NewPost=[...NewPost,{
+    id:Post.id,
+    title:Post.title,
+    body:Post.body,
+    reactions:Post.reactions.likes,
+    tags:Post.tags,
+    userId:Post.userid,}
+  
+  ]
+  
+   })
+   dispatchPostList({
+    type:"ADD_INITIAL_POSTS",
+    payload:{
+      NewPost
+    }
+
+   })
+  }
+  
+  
+  
+  
   // add new post
-  const addPost = (userId,postTitle,postBody,reactions,tags,Uid) => {
+  const addPost = (userId,postTitle,postBody,reactions,tags) => {
    
    
     dispatchPostList({
 type:"ADD_POST",
 payload:{
-  id:userId,
+  id:Date.now(),
   title:postTitle,
   body:postBody,
   reactions:reactions,
   tags:tags,
-  userid:Uid,
+  userId:userId,
   
 }
 
@@ -67,7 +107,7 @@ payload:{
 
   return (
     // Share postList, addPost, deletePost with childrens
-    <PostListContext.Provider value={{ postList, addPost, deletePost }}>
+    <PostListContext.Provider value={{ postList, addPost, deletePost,initial_Posts }}>
       {children}
     </PostListContext.Provider>
   );

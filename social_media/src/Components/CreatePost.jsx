@@ -19,8 +19,8 @@ const tagsElement=useRef();
 
 const handleSubmit=(event)=>{
   event.preventDefault();
-const userId=Date.now();
-const Uid=userIdElement.current.value;
+;
+const userId=userIdElement.current.value;
 const postTitle=postTitleElement.current.value;
 const postBody=postBodyElement.current.value;
 const reactions=reactionsElement.current.value;
@@ -33,11 +33,11 @@ reactionsElement.current.value="";
 tagsElement.current.value="";
 
 // check if there's no blank fields
-if(userId && postTitle && postBody && reactions &&tags && Uid){
+if(userId && postTitle && postBody && reactions &&tags ){
 setMessage("");
 
 // passing data to store's method as new data can be added
-  addPost(userId,postTitle,postBody,reactions,tags,Uid) 
+  addPost(userId,postTitle,postBody,reactions,tags,userId) 
 
 }
 else{
