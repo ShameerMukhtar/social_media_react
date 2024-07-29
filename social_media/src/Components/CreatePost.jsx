@@ -56,9 +56,7 @@ fetch('https://dummyjson.com/posts/add', {
   {
     
   addPost(posts)
-  
-  
-  
+
   
   
 });

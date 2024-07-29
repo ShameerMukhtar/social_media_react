@@ -28,8 +28,8 @@ else if(action.type==="ADD_INITIAL_POSTS"){
 // Add a new post
 else if(action.type==="ADD_POST"){
 
-newPostList=[action.payload.NewPost,...currPostList]
- console.log(action.payload);
+newPostList=[action.payload.post,...currPostList]
+ //console.log(action.payload);
 }
 
 return newPostList;
@@ -42,7 +42,7 @@ const PostListProvider = ({ children }) => {
 
   // Add Initial Posts
   const initial_Posts = useCallback((apiResponse) => {
-    console.log(apiResponse);
+   // console.log(apiResponse);
     let NewPost = [];
     apiResponse.forEach((Post) => {
       NewPost = [
@@ -65,18 +65,18 @@ const PostListProvider = ({ children }) => {
 
   // Add new post
   const addPost = useCallback((post) => {
-    let NewPost = {
-      id: post.id,
-      title: post.title,
-      body: post.body,
-      reactions: post.reactions,
-      tags: post.tags,
-      userId: post.userId,
-    };
+    // let NewPost = {
+    //   id: post.id,
+    //   title: post.title,
+    //   body: post.body,
+    //   reactions: post.reactions,
+    //   tags: post.tags,
+    //   userId: post.userId,
+    // };
 
     dispatchPostList({
       type: "ADD_POST",
-      payload: { NewPost },
+      payload: { post },
     });
   }, [dispatchPostList]);
 
