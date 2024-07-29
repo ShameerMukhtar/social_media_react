@@ -6,29 +6,12 @@ import LoadingSpinner from "./LoadingSpinner";
 
 
 
-const PostList =({selectedTab})=>{
+const PostList =({fetching})=>{
   // Getting data from store using useContext;
 
-const [fetching,setFetching]=useState(false);
 
 const {postList,initial_Posts}=useContext(PostListContext);
 
-// handle  Fetch Posts
-useEffect(()=>{
-setFetching(true);
-const controller = new AbortController();
-const signal=controller.signal;
-
-  fetch('https://dummyjson.com/posts',{signal}).then((response)=>response.json()).then((data)=>{initial_Posts(data.posts)
-  setFetching(false)}
-  )
-  
-  return()=>{
-    console.log("Cleaning up useEffect");
-    controller.abort();
-  }
-  
-},[])
 
 
 

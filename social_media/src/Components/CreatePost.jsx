@@ -32,17 +32,44 @@ postBodyElement.current.value="";
 reactionsElement.current.value="";
 tagsElement.current.value="";
 
-// check if there's no blank fields
-if(userId && postTitle && postBody && reactions &&tags ){
-setMessage("");
 
-// passing data to store's method as new data can be added
-  addPost(userId,postTitle,postBody,reactions,tags,userId) 
+// create a new post using fetch
+
+if(userId && postTitle && postBody && reactions &&tags){
+setMessage("");
+fetch('https://dummyjson.com/posts/add', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    title: postTitle,
+    body:postBody,
+    reactions:reactions,
+    tags:tags,
+    userId:userId
+
+    /* other product data */
+  })
+})
+.then(res => res.json())
+.then(posts=>
+  
+  {
+    
+  addPost(posts)
+  
+  
+  
+  
+  
+});
+
+
 
 }
 else{
   setMessage("Something missing recheck please..");
 }
+
 
 }
 

@@ -1,16 +1,14 @@
-import { act } from "react";
-import { createContext, useReducer } from "react";
-
+import { createContext, useReducer, useCallback, useState,useEffect } from "react";
 
 // Create Context 
- export const PostListContext = createContext({ 
+export const PostListContext = createContext({
   postList: [],
   addPost: () => {},
   deletePost: () => {},
-  initial_Posts:()=>{},
+  initial_Posts: false,
 });
 
-  // Reducer Function (Pure Function)
+// Reducer Function (Pure Function)
 const postListReducer=(currPostList,action)=>{
   let newPostList=currPostList;
 
@@ -29,120 +27,102 @@ else if(action.type==="ADD_INITIAL_POSTS"){
 
 // Add a new post
 else if(action.type==="ADD_POST"){
-//console.log(action.payload.tags);
-newPostList=[action.payload,...currPostList]
- //console.log(action.payload);
- //console.log(currPostList);
+
+newPostList=[action.payload.NewPost,...currPostList]
+ console.log(action.payload);
 }
 
 return newPostList;
 }
 
 
-
-
 const PostListProvider = ({ children }) => {
-  // Used useReducer for state managemant 
-  const [postList, dispatchPostList] = useReducer(postListReducer,[]);
+  // Use useReducer for state management
+  const [postList, dispatchPostList] = useReducer(postListReducer, []);
 
   // Add Initial Posts
-  const initial_Posts=(apiResponse)=>{
-    let NewPost=[];
-   apiResponse.map((Post)=>{
-   NewPost=[...NewPost,{
-    id:Post.id,
-    title:Post.title,
-    body:Post.body,
-    reactions:Post.reactions.likes,
-    tags:Post.tags,
-    userId:Post.userid,}
-  
-  ]
-  
-   })
-   dispatchPostList({
-    type:"ADD_INITIAL_POSTS",
-    payload:{
-      NewPost
-    }
-
-   })
-  }
-  
-  
-  
-  
-  // add new post
-  const addPost = (userId,postTitle,postBody,reactions,tags) => {
-   
-   
+  const initial_Posts = useCallback((apiResponse) => {
+    console.log(apiResponse);
+    let NewPost = [];
+    apiResponse.forEach((Post) => {
+      NewPost = [
+        ...NewPost,
+        {
+          id: Post.id,
+          title: Post.title,
+          body: Post.body,
+          reactions: Post.reactions.likes,
+          tags: Post.tags,
+          userId: Post.userid,
+        },
+      ];
+    });
     dispatchPostList({
-type:"ADD_POST",
-payload:{
-  id:Date.now(),
-  title:postTitle,
-  body:postBody,
-  reactions:reactions,
-  tags:tags,
-  userId:userId,
-  
-}
+      type: "ADD_INITIAL_POSTS",
+      payload: { NewPost },
+    });
+  }, [dispatchPostList]);
 
-    })
-  };
-// Delete a Post
-  
-const deletePost = (postId) => {
- // console.log(`the post id is ${postId}`);
-dispatchPostList({
-type: "DELETE_POST",
-payload:{
-  postId,
-}
+  // Add new post
+  const addPost = useCallback((post) => {
+    let NewPost = {
+      id: post.id,
+      title: post.title,
+      body: post.body,
+      reactions: post.reactions,
+      tags: post.tags,
+      userId: post.userId,
+    };
 
-})
-  
+    dispatchPostList({
+      type: "ADD_POST",
+      payload: { NewPost },
+    });
+  }, [dispatchPostList]);
 
-};
+  // Delete a post
+  const deletePost = useCallback((postId) => {
+    dispatchPostList({
+      type: "DELETE_POST",
+      payload: { postId },
+    });
+  }, [dispatchPostList]);
+
+
+
+  const [fetching,setFetching]=useState(false);
+
+  // handle  Fetch initial Posts
+  useEffect(()=>{
+  setFetching(true);
+  const controller = new AbortController();
+  const signal=controller.signal;
+  
+    fetch('https://dummyjson.com/posts',{signal})
+    .then((response)=>response.json())
+    .then((data)=>{
+      initial_Posts(data.posts)
+    setFetching(false)}
+    )
+    
+    return()=>{
+      console.log("Cleaning up useEffect");
+      controller.abort();
+    }
+    
+  },[])
+
+
+
+
+
+
 
   return (
-    // Share postList, addPost, deletePost with childrens
-    <PostListContext.Provider value={{ postList, addPost, deletePost,initial_Posts }}>
+    <PostListContext.Provider value={{ postList, addPost, deletePost, fetching }}>
       {children}
     </PostListContext.Provider>
   );
 };
-
-
-// Default value for Context
-// const DEFAULT_POST_LIST=[
-//   {
-// id:"1",
-// title:"Going to Lahore",
-// body:"Hello guys going to lahore for my vacations. Hope to enjoy alot! Peace out",
-// userid:"user-3"
-// ,
-// reactions:"5",
-// tags:["Lahore","Vacations","Enjoyment"]
-
-
-// },
-// {
-  
-//     id:"2",
-//     title:"Graduated",
-//     body:"Hello guys finally i am graduated"
-//     ,
-//     userid:"user-7"
-    
-//     ,reactions:"17",
-//     tags:["Graduation","Practical Life"]
-    
-    
-    
-// }
-// ]
-
-
 
 export default PostListProvider;

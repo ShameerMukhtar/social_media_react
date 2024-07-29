@@ -29,7 +29,7 @@ return (
         
         {selectedTab === "Home" ? (
           
-          <PostList selectedTab={selectedTab}></PostList>
+          <PostList ></PostList>
         ) : (
           <CreatePost></CreatePost>
         )}
