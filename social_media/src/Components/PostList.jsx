@@ -14,9 +14,6 @@ const {postList,fetching}=useContext(PostListContext);
 
 
 
-
-
-
 // map the postList and share it with Post component as prop
 return <>
 {fetching  && <LoadingSpinner/>}

@@ -1,32 +1,29 @@
-const Sidebar=({selectedTab ,setSelectedTab})=>{
+import { Link } from "react-router-dom"
 
-const handleTab=(value)=>{
- setSelectedTab(value);
-}
-
-
-
-
+const Sidebar=()=>{
 return <>
-<div className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar" style={{width: "280px"}}>
-    <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+
+
+
+<div className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar" >
+    <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none ">
       <svg className="bi pe-none me-2" width="40" height="32"><use xlinkHref="#bootstrap"></use></svg>
       <span className="fs-4">Social Media</span>
     </a>
     <hr/>
     <ul className="nav nav-pills flex-column mb-auto">
-      <li onClick={()=>{handleTab("Home")}} className="nav-item">
-        <a href="#" className={`nav-link ${selectedTab==='Home' && "active"} `} aria-current="page">
+      <li  className="nav-item">
+        <Link to="/" className="nav-link"  aria-current="page">
           <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
           Home
-        </a>
+        </Link>
       </li>
-      <li onClick={()=>{handleTab("CreatePost")}}>
-        <a href="#" className={`nav-link link-body-emphasis ${selectedTab==="CreatePost" && "active"}`}>
+      <li>
+        <Link to="/create-post" className="nav-link link-body-emphasis ">
           <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
         Create Post
           
-        </a>
+        </Link>
       </li>
       
     </ul>

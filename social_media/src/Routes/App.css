@@ -5,15 +5,18 @@
   width: 100%;
 }
 .sidebar{
-  min-height: 600px;
+ color: green;
+ width: 280px;
 }
 .post-card{
-  margin: 20px 50px;
+  text-align: center;
+  margin: 5vw
   
 
 }
 .hashtag{
   margin: 0px 3px;
+
 }
 .reaction-box{
   
@@ -21,7 +24,7 @@
 }
 .create-post{
   width: 80%;
-  margin: 10%;
+  margin: 5%;
 }
 .message{
   color: rgb(255, 0, 0);
@@ -34,4 +37,7 @@
   margin: 20% 0;
   width: 80px;
   height: 80px;
+}
+.about-container{
+  margin: 20%
 }
