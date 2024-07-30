@@ -5,7 +5,7 @@ export const About = () => {
     <center className='about-container'>
 <div><h1>Hi! I am Shameer :)</h1></div>
 <p>
-  Learning reactjs right now
+  Learning React
 </p>
 
     </center>

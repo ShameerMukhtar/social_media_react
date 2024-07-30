@@ -1,9 +1,10 @@
 import { useContext, useRef, useState } from "react";
 import { PostListContext } from "../Store/post-list-store";
+import { useNavigate } from "react-router";
 
 
 const CreatePost=()=>{
-
+const navigate=useNavigate();
 // useContext 
 const {addPost}=useContext(PostListContext);
 // message if feilds remains empty
@@ -56,12 +57,12 @@ fetch('https://dummyjson.com/posts/add', {
   {
     
   addPost(posts)
-
+  
   
   
 });
 
-
+navigate("/");
 
 }
 else{
